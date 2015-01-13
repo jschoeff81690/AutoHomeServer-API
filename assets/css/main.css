@@ -1,0 +1,157 @@
+/* widget styles */
+/*logo stuff */
+/*create project stuff */
+.menu {
+  margin-bottom: 10.5px;
+  margin-top: 21px;
+}
+.topbar {
+  height: 66px;
+  margin-top: 8px;
+}
+.topbar .logo {
+  background-image: url('../images/mini-logo.jpg');
+  width: 250px;
+  height: 66px;
+  display: block;
+  margin: 0px;
+  left: 0;
+  position: absolute;
+}
+.project-tab {
+  border-radius: 0;
+}
+.project-tab-content {
+  background-color: #ecf0f1;
+  padding: 1em;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.group .group-body {
+  background-color: #ecf0f1;
+  padding: 1em;
+  border-radius: 10px;
+}
+.group .group-body-title {
+  border-bottom: 2px solid #ecf0f1;
+}
+.group .list-group-item-text {
+  margin: 10px auto 0;
+}
+/*
+-- Create Project Styles
+ */
+.project-step-bar {
+  list-style-type: none;
+  height: 50px;
+  margin: 0 0 80px;
+  padding: 0;
+  border-bottom: 2px solid #cccccc;
+}
+.project-step-bar li {
+  font-size: 1.5em;
+  text-align: center;
+  height: 40px;
+}
+.project-step-bar li .glyphicon {
+  display: block;
+  background-color: #eee;
+  width: 30px;
+  margin: 0 auto;
+  font-size: 30px;
+}
+.project-step-bar li .current {
+  color: #18BC9C;
+}
+/*
+-- WIDGET styles
+ */
+.widget {
+  position: fixed;
+  width: 400px;
+  height: 550px;
+  left: 100%;
+  margin-left: -50px;
+  overflow: hidden;
+  color: #cccccc;
+  z-index: 1000;
+  top: 10px;
+}
+.widget-button {
+  background-color: #2c3e50;
+  width: 50px;
+  height: 60px;
+  display: block;
+  padding: 0;
+  float: left;
+  border-radius: 0;
+}
+.widget-button .menu-icon {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.widget-button .menu-icon li {
+  padding: 0;
+  width: 30px;
+  height: 7px;
+  margin: 9px 10px;
+  display: block;
+  background-color: #cccccc;
+}
+.widget-button:hover {
+  background-color: #27282C;
+}
+.widget-button:hover .menu-icon li {
+  background-color: #eee;
+}
+.widget-wrapper {
+  width: 350px;
+  height: 100%;
+  background-color: #2c3e50;
+  display: block;
+  float: right;
+}
+.widget-title {
+  width: 80%;
+  text-align: center;
+  padding: .5em;
+  margin: 0 10% 10px;
+  height: 50px;
+}
+.widget-body {
+  height: 440px;
+  margin-bottom: 0;
+}
+.widget-row {
+  height: 50px;
+}
+.widget-row .btn {
+  border-radius: 0;
+  margin: 0;
+}
+.widget-row .btn .glyphicon {
+  margin-right: 10px;
+}
+.widget-border-top {
+  border-top: 1px solid #34495e;
+}
+.widget-border-bottom {
+  border-bottom: 1px solid #34495e;
+}
+.widget .widget-recent {
+  margin: 15px 0 ;
+}
+.widget .widget-recent .update {
+  border-bottom: 1px solid #cccccc;
+}
+.widget .widget-recent .update h4 {
+  margin: .1em;
+}
+.widget .widget-tab-content {
+  height: 375px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

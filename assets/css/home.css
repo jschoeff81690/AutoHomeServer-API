@@ -1,0 +1,9 @@
+.logo {
+	background-image: url('../images/mini-logo.jpg');
+	width: 250px;
+	height: 66px;
+	display:block;
+	margin:0px;
+	left:0;
+	position:absolute;
+}
