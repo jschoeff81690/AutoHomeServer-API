@@ -18,11 +18,11 @@ $this->load_view('template/header_files',$data);
 		</div>
 		<div class="row">
 			
-					<h1 class="group-title col-md-6">Dashboard <small>Recent Projects:</small></h1><ul class="nav nav-pills menu col-md-6">
+					<h1 class="group-title col-md-6">Dashboard</h1><ul class="nav nav-pills menu col-md-6">
 						<li class="pull-right"><a href="<?php echo base_url;?>home/account">Account</a></li>
-						<li class="pull-right"><a href="<?php echo base_url;?>home/players">teamPlayers</a></li>
-						<li class="pull-right"><a href="<?php echo base_url;?>home/projects">myProjects</a></li>
-						<li class="pull-right"><a href="<?php echo base_url;?>projects/create/1">Create Project</a></li>
+						<li class="pull-right"><a href="<?php echo base_url;?>home/players">Devices</a></li>
+						<li class="pull-right"><a href="<?php echo base_url;?>home/projects">System</a></li>
+						<!-- <li class="pull-right"><a href="<?php echo base_url;?>projects/create/1">Create Project</a></li>-->
 					</ul>
 		</div>
 		<div class="row">
@@ -47,8 +47,8 @@ $this->load_view('template/header_files',$data);
 			//User has no projects :(
 			?>
 			<div class="row recent-projects">
-				<div class="col-md-3 recent-title"><a href="<?php echo base_url?>projects/create/1">Create new Project</a></div>
-				<div class="col-md-9 recent-info">You don't currently have any projects. :( Why Don't you go ahead and create one.</div>
+				<div class="col-md-3 recent-title"><a href="<?php echo base_url?>systems/add">Create new System</a></div>
+				<div class="col-md-9 recent-info">You don't currently have a systems. :( Why Don't you go ahead and create one.</div>
 			</div>
 			<?php
 		}
