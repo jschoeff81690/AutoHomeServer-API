@@ -1,2 +1,2 @@
-# SeniorProject-Server
+# AutoHomeServer-User
 Server Repo
