@@ -1,8 +1,8 @@
 <?php 
 class device {
-	private $did;
+    private $device_id;
+    private $system_id;
 	private $name;
-    private $type;
     private $type_id;
     private $current_ip;
 	private $date_created;

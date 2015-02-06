@@ -1,6 +1,6 @@
 <?php 
 class system {
-	private $sid;
+	private $system_id;
 	private $name;
 	private $description;
 	private $date_created;

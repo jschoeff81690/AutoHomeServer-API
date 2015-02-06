@@ -1,8 +1,8 @@
 <?php 
 class request {
-	private $rid;
-	private $did;
-	private $sid;
+	private $request_id;
+	private $device_id;
+	private $system_id;
 	private $action;
 	private $date_created;
 
