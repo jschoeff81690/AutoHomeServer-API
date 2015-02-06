@@ -20,7 +20,6 @@ class APP {
         $this->set_route();
         $this->load_user();//always load the user if possible
         $this->router();
-
     }
 
     function redirect($location) {
@@ -50,7 +49,7 @@ class APP {
             $this->load_controller($controller,$controller);
             if( isset($function) ) 
                 if(method_exists($this->$controller, $function)) {
-                    if(isset($params))
+                    if(isset($params) && !empty($params))
                         $this->$controller->$function($params);
                     else
                         $this->$controller->$function();
@@ -127,7 +126,7 @@ class APP {
             $this->route['controller'] = $location[0];
             if( isset($location[1]) ) $this->route['function'] = 
 $location[1];
-            if( isset($location[2]) ) {
+            if( isset($location[2]) && !empty($location[2]) ) {
                 for($x = 2; $x < count($location); $x++ )
                     $this->route['params'][] = $location[$x];
             }

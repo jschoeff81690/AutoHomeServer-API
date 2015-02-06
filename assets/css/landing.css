@@ -1,9 +1,9 @@
 .landing-logo {
-  background-image: url('../images/logo.jpg');
-  width: 475px;
-  height: 140px;
+  background-image: url('../images/landing-logo.jpg');
+  width: 373px;
+  height: 158px;
   display: block;
-  margin: 30px auto;
+  margin: 5px auto 30px;
 }
 .landing {
   height: 400px;

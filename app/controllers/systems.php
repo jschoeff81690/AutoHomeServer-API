@@ -1,5 +1,13 @@
 <?php
 class systems extends controller {
+	private $api_handler;
+
+	function __construct() {
+		parent::__construct();
+		$this->api_handler = new api_handler();
+		$this->app->load_model('system_model');
+	}
+
 	function index() {
 		if( $this->app->_logged ) 
 			$this->app->load_view( 'home' );
@@ -13,7 +21,6 @@ class systems extends controller {
 		}
 		if( isset($_POST['system_name']) && isset($_POST['system_description']) ) {
 			//setup system model
-			$this->app->load_model('system_model');
 			$system_model = &$this->app->system_model;
 			//set up array to match new db row
 			$data  = array(
@@ -34,4 +41,20 @@ class systems extends controller {
 			}
 		}
 	}
+
+
+	function all($key = true) {
+		if($key != false) {
+			//
+			//handle security with key here
+			//
+			$systems = $this->app->system_model->get_all_json();
+			$this->api_handler->data('data',$systems);
+			echo $this->api_handler->respond();
+		}
+		else {
+			echo $this->api_handler->respond_error('Error: missing authentication.');
+		}
+	}
+
 }
