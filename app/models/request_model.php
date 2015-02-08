@@ -20,7 +20,7 @@ class request_model extends model {
 	}
 
 	function get_all_json() {
-		$sql = "SELECT * FROM `requests` ORDER BY `date_created` DESC";
+		$sql = "SELECT * FROM `requests` WHERE `state` = \"pending\" ORDER BY `date_created` DESC";
 		$stmt = $this->app->db->query( $sql);
 		$this->app->load_object("request");
 		$result = $stmt->setFetchMode(PDO::FETCH_CLASS,"request");

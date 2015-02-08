@@ -28,7 +28,7 @@ class systems extends controller {
 				'description' => $_POST['system_description']
 			);
 			echo '<pre>';
-			var_dump("got $_POsT");
+			var_dump($_POST);
 			echo '</pre>';
 			//create and confirm it was a success
 			if( $system_model->create($data) ) {

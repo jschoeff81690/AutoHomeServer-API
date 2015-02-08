@@ -3,7 +3,8 @@ class request {
 	private $request_id;
 	private $device_id;
 	private $system_id;
-	private $action;
+    private $action;
+    private $ip_address;
 	private $date_created;
 
 	function __construct() {
