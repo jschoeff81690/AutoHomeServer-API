@@ -95,8 +95,7 @@ $stmt = $this->app->db->query( $sql);
 
 
 ###Framework Example
-- Add section of site to model a db table. Adding CRUD ability and menu item.
-- This example will be a device as used in this project. We wont create object/device.php for simplicity of example.
+- Add section of site to model a db table. Adding CRUD ability and menu item. This example will be a device as used in this project. We wont create object/device.php for simplicity of example.
 - Base files to create 
  - app/controllers/devices.php : controller names a usually plural like db tables
   ```php
@@ -122,10 +121,8 @@ class device_model extends model {
   }
 }
   ```
- - app/views/devices/create_device.php
- - app/views/devices/read_device.php
- - app/views/devices/update_device.php
- - app/views/devices/delete_device.php
+ - app/views/devices/add_device.php
+ - app/views/devices/view_device.php
  - app/views/devices/main_devices.php
 - Set-up URL paths for CRUD. 
  - We will create a form that will POST to base_url/devices/add, the controller will add that device in DB, and the website will redirect to view the new device
@@ -189,3 +186,52 @@ function add() {
       }
   }
 }
+ ```
+ - We have added functionality to add a device, lets view them now
+  - Editing app/views/view_device.php 
+ ```PHP
+  <!-- Same HTML stuff as add_device.php -->
+  <!-- after <div class="topbar">...</div
+  <div class="row">
+      <h1 class="group-title col-md-4"><?php echo $data['device_name']; ?></h1>
+      <?php 
+        //this includes the menu
+        $this->load_view('template/nav',$data);
+      ?>
+      <!-- WE WILL BEGIN THE FORMS TO DEVICE INFO -->
+      <div class="row">
+       <div class="col-md-6">
+        <p>Device ID: <?php echo $data['device_id']; ?></p>
+        <p>Date Created: <?php echo $data['device_created']; ?></p>
+       </div>
+      </div>
+      <!-- REST OF HMTL to end template -->
+ ```
+ - Edit the Model to get a device by ID
+ ```php
+ //append the following
+ function get_by_id($id) {
+  $sql = "SELECT * FROM `devices` WHERE `device_id` = ".$id." ORDER BY `date_created` DESC";
+		$stmt = $this->app->db->query( $sql);
+		if($stmt->rowCount() == 1) {
+		 return $stmt->fetch();
+		 }
+		 return false;
+ }
+ ```
+ - Edit the Controller to send Device info used in $data to the view
+ ```php
+function view($params) {
+  if(is_array($params)) {
+			$id = $params[0];
+			$device = $this->app->device_model->get_device($id); // returns an array from row of device
+			if($device) { //would be false if ID not found
+ 			$data = $device;
+ 			$this->app->load_view('devices/view_device',$data);
+   }		
+   else $this->app->load_view('home');
+		}
+   else $this->app->load_view('home');
+		
+}
+```
