@@ -3,7 +3,6 @@ class model {
 
 	public $table_name = false; //what table to access in DB
 
-
 	//set up singleton app.
 	public $app;
 	function __construct() {
@@ -46,6 +45,54 @@ class model {
 			if($query) {
 				return true;
 			}
+		}
+		return false;
+	}
+	/*
+		Update a table with given values and columns
+	 	builds: 
+		UPDATE table_name SET column1=value1,column2=value2,... WHERE some_column=some_value;
+		
+		@param set :  is an array("column1"=>value1,"column2"=>value2...)
+		@param where_statement :  is a string for where part of clause "`table_id` = 12";
+		@returns true if successful, false if not.
+	*/
+	function update($set, $where_statement) {
+		if($this->table_name != false) {
+			$updates = '';
+			foreach($set as $name => $value){
+						$updates .= "`".$this->app->db->escape_str($name)."`='".$this->app->db->escape_str($value)."',";
+			}
+			$updates = substr($updates, 0, -1);
+			$sql = 'UPDATE '.$this->table_name.' '.$updates.' WHERE '.$where_statement;
+			$query = $this->app->db->query($sql);
+			if($query) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	/*
+	SELECTS FROM TABLE WHERE KEY = VALUE
+	 */
+	function read($key, $value) {
+		if($this->table_name != false) {
+			$sql = 'SELECT * FROM '.$this->table_name.' WHERE `'.$this->app->db->escape_str($key)."` = ?;";
+			$stmt = $this->app->db->query($sql, array($value));
+			if($stmt->rowCount() > 0 ) {
+		       return $stmt->fetch();
+		    }
+		}
+		return false;
+	}
+
+	function delete($key,$value) {
+		if($this->table_name != false) {
+			$sql = 'DELETE FROM '.$this->table_name.' WHERE `'.$this->app->db->escape_str($key).'` = ?;';
+			$stmt = $this->app->db->query($sql, array($value));
+			if($stmt) {
+		       return true;
+		    }
 		}
 		return false;
 	}
