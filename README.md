@@ -82,6 +82,15 @@ $this->app->redirect("systems/view/".$system_id);
 $sql = "SELECT * FROM `table_name` ORDER BY `date_created` DESC";
 $stmt = $this->app->db->query( $sql);
   ```  
+###Built-in Model Functions
+The Model class that is extended in all models, has a few builtin functions. Which require $table_name to be set
+- `create(Array $values, Array $columns)` : Will Build to `INSERT INTO tbale_name ($columns[0],...,$columns[length-1]) VALUES($values[0],...,$values[length-1]);`
+- `create(Array $valuesAndColumns)` : used with array $valuesAndFunctions like array("columnName0" => value0,"column1"=>Value2,...); Will build to `INSERT INTO table_name ($valuesKey[0],...,$valuesKey[length-1]) VALUES($values[0],...,$values[length-1]);`
+- `read(String key, String $value)` : Will build to  `SELECT * FROM table_name WHERE key='value';`
+- `delete(String key, String $value)` : Will build to  `DELETE FROM table_name WHERE key='value';`
+- `exists(String key, String $value)` : Will build to  `SELECT 1 FROM table_name WHERE key='value';` returns TRUE if 1 is found, false if not
+- `exists(Array keys, Array $values)` : Will build to  `SELECT 1 FROM table_name WHERE key[0]='value[0]' AND key[1]='value[1]'...;` returns TRUE if 1 is found, false if not
+- `get_last_id(Array)` : returns last ID of an inserted row.
 
 ###The Databse Object
 - Accessed by $this->app->db, is a class wrapper for PHP's PDO object class.
