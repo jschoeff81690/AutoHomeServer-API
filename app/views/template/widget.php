@@ -27,7 +27,7 @@ $user = $this->user_model->get_user();
 					<div id="widget-projects" class="widget-tab-content">
 						<!-- <h4 class="col-md-11 col-md-offset-1">Projects:</h4> -->
 			<?php
-			$user->load_projects(6);
+			//$user->load_projects(6);
 			if(isset($user->projects)) {
 				foreach($user->projects as $project) {
 					?>
@@ -48,7 +48,7 @@ $user = $this->user_model->get_user();
 					<div id="widget-updates" class="widget-tab-content hidden">
 						<!-- <h4 class="col-md-11 col-md-offset-1">Updates:</h4> -->
 			<?php
-			$user->load_recent_updates(6);
+			//$user->load_recent_updates(6);
 			if(isset($user->updates)) {
 				foreach($user->updates as $update) {
 					if($update['type'] == "message") {

@@ -25,4 +25,33 @@ class devices extends controller {
 			echo $this->api_handler->respond_error('Error: missing authentication.');
 		}
 	}
+
+
+	function updateip($params) {
+		if(strtolower($params[0]) == "chipid") {
+			$result = $this->app->device_model->read("chip_id",$params[1]);
+			if($result) {
+				if($params[2] == "ip" && count($params) == 7){
+					$ip = $params[3].'.'.$params[4].'.'.$params[5].'.'.$params[6];
+					
+					$data = array( 
+						"ip_address" => $ip
+					);
+					if($this->app->device_model->update($data,"`chip_id` = '".$params[1]."'")) {
+						echo $this->api_handler->respond();
+					}
+					else {
+						echo $this->api_handler->respond_error('Error: coudlnt update.');
+					}
+				}
+				else {
+					echo $this->api_handler->respond_error('Error: missing params.');
+				}
+			}
+			else {
+				echo $this->api_handler->respond_error('Error: wrong chip.');
+			}
+		}
+	}
+
 }

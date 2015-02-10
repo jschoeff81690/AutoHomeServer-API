@@ -17,6 +17,7 @@
     <link href="<?php echo base_url;?>assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- teamPlay core CSS -->
     <link href="<?php echo base_url;?>assets/css/main.css" rel="stylesheet">
+    <link href="<?php echo base_url;?>assets/css/flat-ui.css" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="<?php echo base_url;?>assets/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 

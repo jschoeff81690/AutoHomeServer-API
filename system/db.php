@@ -26,6 +26,7 @@ class DB {
 		$password = $database_info['password'];
 		try {
 		    $this->handler = new PDO("mysql:host=$host;dbname=$database", $user, $password);
+    		$this->handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 		    print 'Error!: ' . $e->getMessage() . '<br/>';
 		    die();
@@ -33,15 +34,21 @@ class DB {
 	}
 	
 	public function query($prepd_query,$arr_values=false) {
-		if($arr_values != false) {
-			$stmt = $this->handler->prepare($prepd_query);
-			$stmt->execute($arr_values);
-			return $stmt;
+		try {
+			if($arr_values != false) {
+				$stmt = $this->handler->prepare($prepd_query);
+				$stmt->execute($arr_values);
+				return $stmt;
+			}
+			else {
+				$stmt = $this->handler->prepare($prepd_query);
+				$stmt->execute();
+				return $stmt;
+			}
 		}
-		else {
-			$stmt = $this->handler->prepare($prepd_query);
-			$stmt->execute();
-			return $stmt;
+		catch(PDOException $e) {
+		    print 'Error!: ' . $e->getMessage() . '<br/>';
+		    return false;
 		}
 	}
 	public function handler(){

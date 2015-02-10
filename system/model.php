@@ -61,10 +61,10 @@ class model {
 		if($this->table_name != false) {
 			$updates = '';
 			foreach($set as $name => $value){
-						$updates .= "`".$this->app->db->escape_str($name)."`='".$this->app->db->escape_str($value)."',";
+						$updates .= "`".$name."`=".$this->app->db->escape_str($value).",";
 			}
 			$updates = substr($updates, 0, -1);
-			$sql = 'UPDATE '.$this->table_name.' '.$updates.' WHERE '.$where_statement;
+			$sql = 'UPDATE '.$this->table_name.' SET '.$updates.' WHERE '.$where_statement;
 			$query = $this->app->db->query($sql);
 			if($query) {
 				return true;
@@ -77,8 +77,9 @@ class model {
 	 */
 	function read($key, $value) {
 		if($this->table_name != false) {
-			$sql = 'SELECT * FROM '.$this->table_name.' WHERE `'.$this->app->db->escape_str($key)."` = ?;";
+			$sql = 'SELECT * FROM '.$this->table_name.' WHERE `'.$key."` = ?;";
 			$stmt = $this->app->db->query($sql, array($value));
+			
 			if($stmt->rowCount() > 0 ) {
 		       return $stmt->fetch();
 		    }
@@ -88,7 +89,7 @@ class model {
 
 	function delete($key,$value) {
 		if($this->table_name != false) {
-			$sql = 'DELETE FROM '.$this->table_name.' WHERE `'.$this->app->db->escape_str($key).'` = ?;';
+			$sql = 'DELETE FROM '.$this->table_name.' WHERE `'.$key.'` = ?;';
 			$stmt = $this->app->db->query($sql, array($value));
 			if($stmt) {
 		       return true;

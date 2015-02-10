@@ -31,7 +31,7 @@ $this->load_view('template/header_files',$data);
 					
 	<?php
 	if(isset($this->user)) {
-		$this->user->load_projects(10);
+		//$this->user->load_projects(10);
 		if(isset($this->user->projects)) {
 			foreach($this->user->projects as $project) {
 				?>
@@ -67,7 +67,7 @@ $this->load_view('template/header_files',$data);
 				<ul class="group-body list-group">
 				<?php
 					if(isset($this->user)) {
-						$this->user->load_recent_tasks(5);
+						// $this->user->load_recent_tasks(5);
 						if(!empty($this->user->tasks)) {
 							foreach($this->user->tasks as $task) {
 								?>
@@ -110,7 +110,7 @@ $this->load_view('template/header_files',$data);
 				<ul class="group-body list-group">
 				<?php
 					if(isset($this->user)) {
-						$this->user->load_recent_messages(5);
+						// $this->user->load_recent_messages(5);
 						if(!empty($this->user->messages)) {
 							foreach($this->user->messages as $message) {
 								?>

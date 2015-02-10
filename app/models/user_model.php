@@ -81,34 +81,7 @@ class user_model extends model {
 		return $users;
 	}
 
-	function get_projects($id = false) {
-		if($id == false){
-			$id = $_SESSION['uid'];
-		}
-		$sql = "SELECT project_id from project_users where user_id = ?";
-		$stmt = $this->app->db->query( $sql, array($id) );
-		return $stmt->fetchAll();
-	}
-
-	function get_recent_tasks($id, $limit) {
-		$sql = 'SELECT pu.user_id, pu.project_id, pr.name as project_name, t.id, t.name, t.details, date_format( t.due_date, \'%M %d, %Y\' ) as due, date_format( t.date_created, \'%M %d, %Y\' ) as created FROM `project_users` as pu, `projects` as pr, `tasks` as t WHERE pu.user_id = ? AND t.project_id = pr.id AND pr.id = pu.project_id ORDER BY t.date_created DESC limit '.$limit.';';
-		$stmt = $this->app->db->query( $sql, array($id) );
-		return $stmt->fetchAll();
-	}
-
-	function get_recent_messages($id, $limit) {
-		$sql = 'SELECT pu.user_id, pu.project_id, pr.name as project_name, m.id, m.content, date_format( m.date_created, \'%M %d, %Y\' ) as created,u.name as sender FROM `project_users` as pu, `projects` as pr, `project_messages` as m, `users` as u WHERE pu.user_id = ? AND m.project_id = pr.id AND pr.id = pu.project_id AND u.id = m.sender_id ORDER BY m.date_created DESC LIMIT '.$limit.';';
-		$stmt = $this->app->db->query( $sql, array($id) );
-		return $stmt->fetchAll();
-	}
-
-	function get_recent_updates($id, $limit) {
-		$sql = '(SELECT pu.user_id, pu.project_id, pr.name as 
-project_name,"message" as name, TIMEDIFF(CURRENT_TIMESTAMP(), 
-m.date_created) as created, u.name as sender, "message" as type FROM `project_users` as pu, `projects` as pr, `project_messages` as m, `users` as u WHERE pu.user_id = ? AND m.project_id = pr.id AND pr.id = pu.project_id AND u.id = m.sender_id) UNION (SELECT pu.user_id, pu.project_id, pr.name as project_name, t.name, TIMEDIFF(CURRENT_TIMESTAMP(), t.date_created  ) as created, "user" as sender, "task" as type  FROM `project_users` as pu, `projects` as pr, `tasks` as t WHERE pu.user_id = ? AND t.project_id = pr.id AND pr.id = pu.project_id )ORDER BY created ASC LIMIT '.$limit.';';
-		$stmt = $this->app->db->query( $sql, array($id,$id) );
-		return $stmt->fetchAll();
-	}
+	
  }
 
  ?>
