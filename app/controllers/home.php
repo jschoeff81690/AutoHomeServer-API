@@ -4,8 +4,16 @@ class home extends controller {
 		if( $this->app->_logged ) {
 			$this->app->load_model('relay_model');
 			$data['tests'] = $this->app->relay_model->list_tests();
-			
 			$this->app->load_view('home',$data);
+		}
+		else {
+			$this->app->load_view('landing');
+		}
+	}
+
+	function dashboard() {
+		if( $this->app->_logged ) {
+			$this->app->load_view('dashboard');
 		}
 		else {
 			$this->app->load_view('landing');
@@ -90,7 +98,6 @@ class home extends controller {
 		$this->app->load_view('account_settings');
 
 	}
-	
 	function logout() {
 		session_unset();
 		$this->app->load_view('landing');

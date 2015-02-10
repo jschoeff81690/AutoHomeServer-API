@@ -81,6 +81,25 @@ class user_model extends model {
 		return $users;
 	}
 
+	function get_system($user_id) {
+		$sql = "SELECT * FROM `systems` as s WHERE s.user_id = ?";
+		$stmt = $this->app->db->query($sql, array($user_id));
+			
+		if($stmt->rowCount() > 0 ) {
+	       return $stmt->fetch();
+	    }
+	    return false;
+	}
+
+	function get_devices($system_id) {
+		$sql = "SELECT d.*,dt.* FROM `devices`as d, `manufacture_devices` as md,`device_types` as dt WHERE d.system_id = ? AND md.chip_id = d.chip_id AND md.device_type_id = dt.type_id";
+		$stmt = $this->app->db->query($sql, array($system_id));
+			
+		if($stmt->rowCount() > 0 ) {
+	       return $stmt->fetchAll();
+	    }
+	    return false;
+	}
 	
  }
 

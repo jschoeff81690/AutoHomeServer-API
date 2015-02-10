@@ -26,132 +26,50 @@ $this->load_view('template/header_files',$data);
 					</ul>
 		</div>
 		<div class="row">
-			<div class="group col-md-12">
-				<div class="group-body">
-					
-	<?php
-	if(isset($this->user)) {
-		//$this->user->load_projects(10);
-		if(isset($this->user->projects)) {
-			foreach($this->user->projects as $project) {
+			<div class="col-md-12">
+				<?php
+					$system = $this->user_model->get_system($this->user->_get('id'));
+					$devices = $this->user_model->get_devices($system['system_id']);
+
 				?>
-				<div class="row recent-projects">
-					<div class="col-md-3 recent-title"><a href="<?php echo base_url?>projects/view/<?php echo $project->_get('id'); ?>"><?php echo $project->_get('name'); ?></a></div>
-					<div class="col-md-9 recent-info"><?php echo $project->_get('description'); ?></div>
-				</div>
-				<?php
-			}
-		}
-		else {
-
-			//User has no projects :(
-			?>
-			<div class="row recent-projects">
-				<div class="col-md-3 recent-title"><a href="<?php echo base_url?>systems/add">Create new System</a></div>
-				<div class="col-md-9 recent-info">You don't currently have a systems. :( Why Don't you go ahead and create one.</div>
-			</div>
-			<?php
-		}
-	}
-	?>
-				
-				</div>
-			</div>
+				<div class="well col-md-12">
 			
-		</div>
-		<div class="row">
-			<div class="group col-md-6">
-				<h3 class="group-title">Recent Tasks</h3>
-
-				
-				<ul class="group-body list-group">
-				<?php
-					if(isset($this->user)) {
-						// $this->user->load_recent_tasks(5);
-						if(!empty($this->user->tasks)) {
-							foreach($this->user->tasks as $task) {
-								?>
-								<li class="list-group-item">
-									<div class="row">
-										<div class="col-md-8">
-											<h4 class="list-group-item-heading"><?php echo $task['name']; ?> <small><a href="<?php echo base_url?>projects/view/<?php echo $task['project_id']; ?>"><?php echo $task['project_name']; ?></a></small></h4>
+					<!-- List Current Device Types -->
+					<ul class="group-body list-group">
+						<?php
+							
+							if(!empty($devices)) {
+								foreach( $devices as $device ) {	
+									echo '<li class="list-group-item">'
+										.'<h4 class="list-group-item-heading">'.$device['name'].'<small>'.$device['device_name'].'</small></h4>'
+				    					.'<div class="row">';
+				    					//form for swithc here
+				    					?>
+				    					<form class="form-inline col-md-3" role="form" method="POST" action="<?php echo base_url;?>requests/add">
+					    					<input type="hidden" name="device_id" value="<?php echo $device['device_id'];?>">
+					    					<input type="hidden" name="system_id" value="<?php echo $device['system_id'];?>">
+					    					<input type="hidden" name="ip_address" value="<?php echo $device['ip_address'];?>">
+					    					<div class="switch switch-square">
+												<input type="checkbox" checked data-toggle="switch" name="action" value="on"/>
+											</div>
+											<input type="hidden" name="action_type" value="switch">
+											<input class="btn btn-primary col-md-offset-6 col-md-6" type="submit" value="Update">
+										</form>
 										</div>
-										<div class="col-md-4">
-											<span class="badge alert-info">Due: <?php echo $task['due']; ?></span>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<p class="list-group-item-text" style="overflow:hidden;"><?php echo $task['details']; ?></p>
-										</div>
-									</div>
-								</li>
-								<?php
-							}
-						}
-						else {
-
-							//User has no projects :(
-							?>
-							<div class="row recent-projects">
-								<div class="col-md-3 recent-title"><a href="<?php echo base_url?>projects/create/1">Create new Project</a></div>
-								<div class="col-md-9 recent-info">You don't currently have any projects. :( Why Don't you go ahead and create one.</div>
-							</div>
-							<?php
-						}
-					}
-						?>
-				</ul>
-				
-			</div>
-			<div class="group col-md-6">
-				<h3 class="group-title">Recent Project Messages</h3>
-
-				<ul class="group-body list-group">
-				<?php
-					if(isset($this->user)) {
-						// $this->user->load_recent_messages(5);
-						if(!empty($this->user->messages)) {
-							foreach($this->user->messages as $message) {
-								?>
-								<li class="list-group-item">
-									<div class="row">
-										<div class="col-md-8">
-											<h4 class="list-group-item-heading"><?php echo $message['sender']; ?> <small><a href="<?php echo base_url?>projects/view/<?php echo $message['project_id']; ?>"><?php echo $message['project_name']; ?></a></small></h4>
-										</div>
-										<div class="col-md-4">
-											<span class="badge alert-info">Sent: <?php echo $message['created']; ?></span>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<p class="list-group-item-text" style="overflow:hidden;"><?php echo $message['content']; ?></p>
-										</div>
-									</div>
-								</li>
-								<?php
-							}
-						}
-						else {
-
-							//User has no projects :(
-							?>
-							<div class="row recent-projects">
-								<p>Tests From /relay/</p>
-								<ul>
-								<?php
-								foreach($tests as $test) {
-									echo '<li><b>Data:</b>'.$test['data'].'</li>';
+										<?php
+				    					echo '</div></li>';
 								}
-								?>
-								</ul>
-								<div class="col-md-9 recent-info">You don't currently have any Messages. </div>
-							</div>
-							<?php
-						}
-					}
+							}
+							else {
+								echo '<li class="list-group-item">'
+									.'This project has no devices yet. Why don\'t you go ahead and add one: <a href="#" class="addDeviceType"><span class="glyphicon glyphicon-plus"></span> Device Type</a>'
+									.'</li>';
+									
+							}
 						?>
-				</ul>
+					</ul>
+
+				</div>
 			</div>
 		</div>
 			

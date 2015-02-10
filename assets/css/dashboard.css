@@ -1,0 +1,23 @@
+html, body {height: 100%;}
+.dash{height: 100%;}
+
+.dash-top{
+  height:10%;
+}
+.dash-view {
+  height: 90%;
+}
+
+.dash-view-menu {
+  height: 100%;
+  margin-bottom: 0 !important;
+}
+.menu-item {
+  width: 100%;
+}
+
+.dash-view-content {
+  background-color: #f2f2f2;
+  height: 100%;
+  
+}
