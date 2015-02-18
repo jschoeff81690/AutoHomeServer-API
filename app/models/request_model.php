@@ -1,9 +1,12 @@
 <?php
+
 class request_model extends model {
+
 	function __construct() {
 		parent::__construct ();
 		$this->table_name = "requests";
 	}
+
 	function get_all() {
 		$sql = "SELECT * FROM `requests` ORDER BY `date_created` DESC";
 		$stmt = $this->app->db->query ( $sql );
@@ -15,8 +18,9 @@ class request_model extends model {
 		}
 		return $requests;
 	}
+
 	function get_all_json() {
-		$sql = "SELECT * FROM `requests` WHERE `state` = \"pending\" ORDER BY `date_created` DESC";
+		$sql = "SELECT r.*, d.ip_address FROM `requests` as r, `devices` as d WHERE r.`device_id` = d.`device_id` AND `state` = \"pending\" ORDER BY `date_created` DESC";
 		$stmt = $this->app->db->query ( $sql );
 		$this->app->load_object ( "request" );
 		$result = $stmt->setFetchMode ( PDO::FETCH_CLASS, "request" );
@@ -29,10 +33,12 @@ class request_model extends model {
 		$requests .= ']';
 		return $requests;
 	}
+
 	function get_system($id) {
-		$sql = "SELECT * FROM `requests` WHERE system_id= '".$id."' AND `state` = \"pending\" ORDER BY `date_created` DESC";
+		$sql = "SELECT r.*, d.ip_address FROM `requests` as r, `devices` as d WHERE r.`device_id` = d.`device_id` AND r.`system_id` = '" . $id . "' AND `state` = \"pending\" ORDER BY `date_created` DESC";
 		$stmt = $this->app->db->query ( $sql );
-		$requests = $stmt->fetchAll();
-		return json_encode($requests);
+		$requests = $stmt->fetchAll ();
+		return json_encode ( $requests );
 	}
+
 }

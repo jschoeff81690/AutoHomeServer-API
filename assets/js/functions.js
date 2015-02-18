@@ -1,5 +1,5 @@
 function appendModal(display_name, item_name, body) {
-	modal = '<div class="modal fade" id="myModal'+modal_count+'">'
+	modal = '<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="myModal'+modal_count+'">'  
 	  +'<div class="modal-dialog">'
 	    +'<div class="modal-content">'
 	      +'<div class="modal-header">'
@@ -30,7 +30,14 @@ function get_alert(content, type) {
 		+'</div>';
 
 }
-
+function ajax_get_html(location) {
+	return $.get( location, function() {
+	  console.log( "success" );
+	})
+	  .fail(function() {
+	    console.log( "error" );
+	  });
+}
 function ajax(location, post_data) {
 	var tmp = post_data;
 	if(typeof tmp === 'object') {

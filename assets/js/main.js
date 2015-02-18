@@ -1,79 +1,67 @@
 var modal_count = 0;
 var project_tabs = new Array("tasks","messages","teamplayers");
 $( document ).ready(function() {
-
-
-	$('.addTask').on("click", function(event) {
-		event.preventDefault();
-		project_id =  $('#project_id').text();
-		body = get_task_form(project_id);
-		appendModal("Task","task",body);
-		link = $(this);
-		$('.task-submit').on("click", function(event) {
-			event.preventDefault();
-			id = $(this).attr('data-task');
-			form_data = $('#'+id).serialize();
-			var ajaxObj = ajax(base_url+"projects/add_task", form_data);
-			ajaxObj.success(function(data){
-				console.log(data);
-				var alert = '<div class="row"><div class="col-md-8 col-md-offset-2">';
-				if(data.error) {
-					alert += get_alert(data.message,"danger");
-				}
-				else {
-					alert += get_alert(data.message,"success");
-				}
-				alert += '</div></div>';
-				link.parent().parent().parent().after(alert);
-			});
-		});
-	});
-	$('.addMessage').on("click", function(event) {
-		event.preventDefault();
-		project_id =  $('#project_id').text();
-		user_id =  $('#user_id').text();
-		body = get_message_form(project_id, user_id);
-		appendModal("Project Message","message",body);
-		link = $(this);
-		$('.message-submit').on("click", function(event) {
-			event.preventDefault();
-			id = $(this).attr('data-message');
-			form_data = $('#'+id).serialize();
-			var ajaxObj = ajax(base_url+"projects/add_message", form_data);
-			ajaxObj.success(function(data){
-				console.log(data);
-				var alert = '<div class="row"><div class="col-md-8 col-md-offset-2">';
-				if(data.error) {
-					alert += get_alert(data.message,"danger");
-				}
-				else {
-					alert += get_alert(data.message,"success");
-				}
-				alert += '</div></div>';
-				link.parent().parent().parent().after(alert);
-			});
-		});
-	});
-	$('.project-tab').on("click", function(event) {
-		event.preventDefault();
-
-		var id = $(this).text().trim().toLowerCase();
-		for( i = 0;  i < project_tabs.length; i++) {
-			var project_tab = project_tabs[i];
-			var content = $("#project-"+project_tab);
-			var link = $("#project-"+project_tab+"-link");
-			if(content.is(":visible")) 
-				content.toggleClass("hidden")
-			if(project_tab == id)
-				content.toggleClass("hidden");
-
-
-			if(link.hasClass("active") && project_tab != id) link.removeClass("active");
-			if(project_tab == id) link.addClass("active");
-			
-		}
-	});
+	add_modal('.addDevice',"Device","devices", base_url+"devices/form_view",base_url+"devices/ajax_add");
+	
 });
+
+
+function add_modal(class_name, display_name, item_name, getLocation, postLocation) {
+	$(class_name).on("click", function(event) {
+		event.preventDefault();
+		var link = $(this);
+
+		ajax_get_html(getLocation)
+		.done(function(data) {//if successfully retrieved form
+			//alert($data);
+			// appendModal("Device","device",data);
+			appendModal(display_name,item_name, data);
+			$('.'+item_name+'-submit').on("click", function(event) {
+				event.preventDefault();
+				id = link.attr('data-'+item_name);
+				console.log(id);
+				form_data = $('#'+id).serialize();
+				console.log(form_data);
+				var ajaxObj = ajax(postLocation, form_data);
+				ajaxObj.success(function(data){
+					console.log(data);
+					var alert = '<div class="row"><div class="col-md-8 col-md-offset-2">';
+					if(data.error) {
+						alert += get_alert(data.message,"danger");
+					}
+					else {
+						alert += get_alert(data.message,"success");
+					}
+					alert += '</div></div>';
+					link.parent().parent().parent().after(alert);
+				});
+			});
+		});
+
+
+		// body = form_callback(item_name);
+		// appendModal(display_name,item_name,body);
+		// link = $(this);
+		// $('.'+item_name+'-submit').on("click", function(event) {
+		// 	event.preventDefault();
+		// 	id = $(this).attr('data-'+item_name);
+		// 	form_data = $('#'+id).serialize();
+		// 	var ajaxObj = ajax(base_url+item_name+"/ajax_add", form_data);
+		// 	ajaxObj.success(function(data){
+		// 		console.log(data);
+		// 		var alert = '<div class="row"><div class="col-md-8 col-md-offset-2">';
+		// 		if(data.error) {
+		// 			alert += get_alert(data.message,"danger");
+		// 		}
+		// 		else {
+		// 			alert += get_alert(data.message,"success");
+		// 		}
+		// 		alert += '</div></div>';
+		// 		link.parent().parent().parent().after(alert);
+		// 	});
+		// });
+	});
+}
 
 
 function get_task_form(project_id) {

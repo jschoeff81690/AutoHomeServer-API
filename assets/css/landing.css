@@ -1,35 +1,36 @@
-.landing-logo {
-  background-image: url('../images/landing_logo.jpg');
-  width: 375px;
-  height: 158px;
-  display: block;
-  margin: 5px auto 30px;
-}
+
 .landing {
-  height: 400px;
+	height: 400px;
 }
+
 .landing h2 {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 }
+
 .landing .btn {
-  margin-top: 20px;
+	margin-top: 20px;
 }
+
 .landing .checkbox {
-  margin-top: 30px;
+	margin-top: 30px;
 }
-.landing .divider {
-  background-color: #ccc;
-  width: 1px;
-  height: 100%;
-  display: block;
-  margin: auto;
+
+.divider {
+	background-color: #ccc;
+	width: 1px;
+	height: 50%;
+	display: block;
+	margin: auto;
 }
-.landing .landing-or {
-  position: absolute;
-  font-weight: bold;
-  padding: 1em;
-  border: 2px solid #ccc;
-  top: 45%;
-  margin-left: -2em;
-  background-color: #fff;
+
+.landing-or {
+	font-weight: bold;
+	padding: 1em;
+	border: 2px solid #ccc;
+	margin-left: -2em;
+	background-color: #fff;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 60%;
+	width: 50%;
 }

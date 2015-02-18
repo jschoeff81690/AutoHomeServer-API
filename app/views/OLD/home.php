@@ -6,7 +6,7 @@
 <head>
 <?php
 $data['title'] = "Dashboard";
-$this->load_view('template/header_files',$data);
+$this->load_view('template_old/header_files',$data);
 ?>
 
 </head>
@@ -73,9 +73,9 @@ $this->load_view('template/header_files',$data);
 			</div>
 		</div>
 			
-		<?php $this->load_view('template/widget'); ?>
+		<?php $this->load_view('template_old/widget'); ?>
 	</div>	
-		<?php $this->load_view('template/scripts'); ?>
+		<?php $this->load_view('template_old/scripts'); ?>
 	
 </body>
 </html>

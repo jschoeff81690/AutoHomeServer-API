@@ -37,7 +37,8 @@ class config {
 		);
 
 	private $object_names = array(
-		"api_handler"		
+		"api_handler",	
+		"form_validator"		
 		);
 
 	private $app;
