@@ -21,5 +21,15 @@ class device_model extends model {
 		$devices .= ']';
 		return $devices;
 	}
-
+	function get_device($device_id) {
+		$sql = "SELECT d.*,dt.*,dat.* FROM `devices`as d,`device_types` as dt,`data_types` as dat WHERE d.device_id = ? AND d.device_type_id = dt.type_id AND dt.data_type_id = dat.data_type_id";
+		$stmt = $this->app->db->query ( $sql, array (
+				$device_id 
+		) );
+		
+		if ($stmt->rowCount () > 0) {
+			return $stmt->fetch ();
+		}
+		return false;
+	}
 }

@@ -1,5 +1,4 @@
 <?php
-
 class user {
 
 	private $id;
@@ -31,7 +30,9 @@ class user {
 				"id",
 				"name",
 				"email",
-				"password" 
+				"password",
+				"phone_number",
+				"carrier" 
 		);
 		$dump = array ();
 		foreach ( $fields as $key ) {
@@ -39,5 +40,4 @@ class user {
 		}
 		return $dump;
 	}
-
 }

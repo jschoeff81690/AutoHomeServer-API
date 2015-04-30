@@ -109,7 +109,6 @@ class user_model extends model {
 		}
 		return false;
 	}
-
 }
 
 ?>

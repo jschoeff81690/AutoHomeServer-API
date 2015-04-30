@@ -41,4 +41,10 @@ class request_model extends model {
 		return json_encode ( $requests );
 	}
 
+	function get_last_request($sid, $rid) {
+		$sql = "SELECT r.*, d.ip_address FROM `requests` as r, `devices` as d WHERE r.`device_id` = d.`device_id` AND r.`system_id` = '" . $sid . "' AND `state` = \"pending\" AND r.`request_id` ='" . $rid . "'";
+		$stmt = $this->app->db->query ( $sql );
+		$requests = $stmt->fetchAll ();
+		return json_encode ( $requests [0] );
+	}
 }
