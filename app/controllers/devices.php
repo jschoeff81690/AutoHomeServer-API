@@ -268,16 +268,12 @@ class devices extends controller {
 		$key= "12345678912345678912345678901234";
 		//$key= "D>m|z7&pIg]y4I?3|dy$-,9DmYo]&<O!";
 		//$iv = "1234567891234567";
-		$iv = pack("H*" ,"F03E09E54B010BD96D3424FF13099057");
-		var_dump($iv);
-		//$iv = "e5r6cyY'k=P,dm@59gJNVH4]|gAic02*";
-		
 		$data = "10455290-detected-".time();
 		$aes = new aes_util();
 		$arw = $aes->generate_iv();
 		var_dump($arw);
 		var_dump(bin2hex($arw));
-		if(	$aes->set_key($key,$iv)) {
+		if(	$aes->set_key($key,$arw)) {
 			$c = $aes->encrypt($data);
 			//$c = pack("H*" ,"E462082AA608187CB77954F147705927");
 			$p = $aes->decrypt($c);
